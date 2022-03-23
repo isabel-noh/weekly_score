@@ -4,13 +4,25 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 
 const WeeklyScore = (props) => {
-    const [scoreM, setScoreM] = React.useState(5);  //초기화 score 값 5 // useState : 함수형 컴포넌트 
-    const [scoreT, setScoreT] = React.useState(5);
-    const [scoreW, setScoreW] = React.useState(5);
-    const [scoreTH, setScoreTH] = React.useState(5);
-    const [scoreF, setScoreF] = React.useState(5);
-    const [scoreSAT, setScoreSAT] = React.useState(5);
-    const [scoreS, setScoreS] = React.useState(5);
+    const [scoreM, setScoreM] = React.useState(0);  //초기화 score 값 5 // useState : 함수형 컴포넌트 
+    const [scoreT, setScoreT] = React.useState(0);
+    const [scoreW, setScoreW] = React.useState(0);
+    const [scoreTH, setScoreTH] = React.useState(0);
+    const [scoreF, setScoreF] = React.useState(0);
+    const [scoreSAT, setScoreSAT] = React.useState(0);
+    const [scoreS, setScoreS] = React.useState(0);
+
+    const day_text_dict = {
+        0: "일",
+        1: "월",
+        2: "화",
+        3: "수",
+        4: "목",
+        5: "금",
+        6: "토",
+      };
+
+    const set_score = Array.from({length: 5}, (v, i) => i);
 
     useEffect(() => {
         setScoreM(Math.floor(Math.random() * 5) + 1);
@@ -21,6 +33,14 @@ const WeeklyScore = (props) => {
         setScoreSAT(Math.floor(Math.random() * 5) + 1);
         setScoreS(Math.floor(Math.random() * 5) + 1);
     }, [])
+
+    // useEffect(() => {
+    //     const score = () => {
+    //         set_score.map((n, i) => {
+    //             Math.floor(Math.random * 5) + 1;
+    //         });
+    //     };
+    // }, [])
 
     // console.log(score);
 
@@ -117,7 +137,7 @@ const MyWrap = styled.div`
     margin: 0px auto;
 
     h1{
-        color: darkslateblue;
+        color: #f55354;
     }
 `
 const MyWeek = styled.div`
@@ -143,7 +163,7 @@ const MyDays = styled.div`
     .triangle {
         width: 0px;
         height: 0px;
-        border-left: 32px solid red;
+        border-left: 32px solid #ff9797;
         border-top: 16px solid transparent;
         border-bottom: 16px solid transparent;
         float: left;
