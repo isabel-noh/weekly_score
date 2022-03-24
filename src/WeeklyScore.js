@@ -73,7 +73,7 @@ const WeeklyScore = (props) => {
                                         style={{backgroundColor: d.score < i+1 ? "#eee": "#f55354"}}></Circle>
                                 )
                             })}
-                            <Link to="/daily/월"><div className='triangle'></div></Link>
+                            <Link to={`/daily/${d.day}`}><div className='triangle'></div></Link>
                         </MyDays>
                     )
                 })}
