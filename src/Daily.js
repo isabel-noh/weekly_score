@@ -8,9 +8,10 @@ const Daily = (props) => {
 
     const [score, setScore] = React.useState(0)
 
-    // const clickEvent = () => {
-    //     score.current.style.backgroundColor = "yellow";
-    // }
+    //onKeyUp 이벤트리스너 만들기 위해서 React.useEffect(()=> {}, []) 사용  {}에는 함수가, []에는 dependency Array
+    //React.useEffect(() => {}, []); 1.먼저 화살표 함수를 실행한다. > 리랜더링 > 화살표 함수를 재실행하기 전에 배열(dependancy Array)안에 바뀐 값이 있는지 확인하고, 바뀐 값이 있을 때에만 화살표 함수 실행한다.
+    //dependancy Array가 없을 경우 componentDidMount처럼 역할을 수행한다
+
 
     // React.useEffect(() => {
     //     score.current.addEventListener("click", clickEvent);
@@ -18,13 +19,27 @@ const Daily = (props) => {
     // }, [score])
 
     React.useEffect(() => {
-        console.log(score)
-    })
+        const keyup = (e) => {
+            console.log(e)
+
+            if(parseInt(e.key) === 1){
+                setScore(parseInt(e.key));
+            }else if(parseInt(e.key) === 2){
+                setScore(parseInt(e.key));
+            }else if(parseInt(e.key) === 3){
+                setScore(parseInt(e.key));
+            }else if(parseInt(e.key) === 4){
+                setScore(parseInt(e.key));
+            }else if(parseInt(e.key) === 5){
+                setScore(parseInt(e.key));
+            }
+        }    
+        //어디에 포커스 되어 있던 평점을 매겨주려면 window객체에 addEventListener을 붙여줘야해
+        window.addEventListener("keyup", keyup)
+
+        return () => window.removeEventListener("keyup", keyup)
+    }, []);
     
-    //React.useEffect(() => {}, []); 1.먼저 화살표 함수를 실행한다. > 리랜더링 > 화살표 함수를 재실행하기 전에 배열(dependancy Array)안에 바뀐 값이 있는지 확인하고, 바뀐 값이 있을 때에만 화살표 함수 실행한다.
-    //dependancy Array가 없을 경우 componentDidMount처럼 역할을 수행한다
-
-
     return (
         <MyWrap>
             <h1 style={{margin: "40px auto"}}>
@@ -37,12 +52,13 @@ const Daily = (props) => {
                         )
                     })} */}
                 {Array.from({length: 5}, (v, i) => { //길이가 5인 배열을 만들고 각 값을 돌면서 아래 component를 리턴함
+                
                     return(
                         <Circle 
                             key={i}  //key는 index
                             onClick={() =>{  // onClick={() => {}}
                                 setScore(i + 1) //3번째 원을 누르면 (index=2) score이 3으로 바뀜
-                            }} 
+                            }}
                             style ={{backgroundColor: score < i + 1 ? "#eee" : "#ff9797"}}></Circle> //선택한 i+1번째 원이 선택한 score값보다 크면 회색, 작으면 분홍색 (즉, 3번 선택, 4번 5번 원은 회색)
                     )
                 })}
