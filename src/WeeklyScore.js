@@ -20,11 +20,30 @@ const WeeklyScore = (props) => {
         4: "목",
         5: "금",
         6: "토",
-      };
-      console.log(Object.keys(day_text_dict).map((d, i) => day_text_dict[d]));
+    };
 
-      const day_text_arr = Object.values(day_text_dict);
-      console.log(day_text_arr)
+    const today = new Date().getDay();  // 4 (: 목요일)
+
+    const today_datecount = Object.keys(day_text_dict).map((v, i)=>{
+        return (
+            (parseInt(v) + today) > 6? parseInt(v)+today-7 : parseInt(v)+today
+        )
+    })  
+    console.log(today_datecount) // [4, 5, 6, 0, 1, 2, 3]
+
+    const today_text = today_datecount.map((v, i) => { //day_text_dict에서 v에 해당하는 value값 가져와서 배열로 만들고픔
+            // key: parseInt(v), 
+            return Object.values(day_text_dict)[v]
+    })
+    console.log(today_text)
+
+//   console.log(Object.keys(today_text_dic).map((d, i) => today_text_dic[d]));
+
+    const day_text_arr = Object.values(today_text);
+    console.log(day_text_arr)
+
+
+
     // const set_score = Array.from({length: 5}, (v, i) => i);
 
     // useEffect(() => {
@@ -54,7 +73,8 @@ const WeeklyScore = (props) => {
     const score = day_text_arr.map((v, i) => {
         return {
             day: v,
-            score: Math.floor(Math.random() * 5) + 1}
+            score: Math.floor(Math.random() * 5) + 1
+        }
     })
     console.log(score)
 
